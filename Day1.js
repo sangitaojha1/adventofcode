@@ -1,47 +1,5 @@
-data = document.body.children[0].textContent.split("\n").map((x) => (x));;
-console.log(data);
-temp = 0;
-tempWitSum = [];
-for (k = 0; k < data.length; k++) {
-  if (data[k] == "") {
-    tempWitSum.push(temp);
-    temp = 0;
-  } else {
-    temp = temp + parseInt(data[k]);
-  }
-
-}
-console.log(tempWitSum);
-max = tempWitSum[0];
-for (i = 1; i < tempWitSum.length; i++) {
-  if (tempWitSum[i] > max) {
-    max = tempWitSum[i];
-  }
-}
+data = document.querySelector("pre").textContent.split("\n\n").map(s => s.split("\n")).map(temp => temp.map(s => parseInt(s)).reduce((a, b) => a + b, 0))
+max = data.reduce((a, b) => b > a ? b : a, 0);
 console.log(max);
-
-maxIndex = new Array();
-maxCalories = [0, 0, 0];
-
-
-for (i = 0; i < tempWitSum.length; i++) {
-  if (tempWitSum[i] > maxCalories[0]) {
-    maxCalories[0] = tempWitSum[i];
-    maxIndex[0] = i;
-  }
-}
-
-for (i = 0; i < tempWitSum.length; i++) {
-  if (tempWitSum[i] > maxCalories[1] && tempWitSum[i] < maxCalories[0]) {
-    maxCalories[1] = tempWitSum[i];
-    maxIndex[1] = i;
-  }
-}
-
-for (i = 0; i < tempWitSum.length; i++) {
-  if (tempWitSum[i] > maxCalories[2] && tempWitSum[i] < maxCalories[1]) {
-    maxCalories[2] = tempWitSum[i];
-    maxIndex[2] = i;
-  }
-}
-console.log(maxCalories[0] + maxCalories[1] + maxCalories[2]);
+sum = data.sort((a, b) => a < b).splice(0, 3).reduce((a, b) => a + b, 0);
+console.log(sum);
